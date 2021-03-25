@@ -1,0 +1,106 @@
+/* Container */
+
+.container {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Header */
+
+.menus {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: #96E6B3;
+}
+
+.menus__navigation {
+  padding: 10px;
+  width: 100%;
+}
+
+.menus__navigation-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.menus__navigation-item a {
+  text-decoration: none;
+  color: #000;
+  transition: 0.2s linear;
+}
+
+.menus__navigation-item a:hover {
+  color: #333;
+}
+
+/* Main content */
+
+.content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+}
+
+.hopper-workspace {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.hopper-workspace__tempimage {
+  object-fit: cover;
+  object-position: right;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.hopper-commands {
+  margin-left: 25px;
+  width: 50%;
+}
+
+.hopper-commands__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.hopper-commands__label {
+  margin-bottom: 8px;
+}
+
+.hopper-commands__actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.hopper-commands__action-btn {
+  padding: 5px;
+  width: 45%;
+  border-radius: 0px;
+  border: 0;
+  transition: 0.3s linear;
+}
+
+.hopper-commands__action-btn:hover {
+  background-color: #96E6B3;
+}
+
+.hopper-commands__action-btn:active {
+  outline: none;
+}
+
+.hopper-commands__input {
+  width: 100%;
+  height: 465px;
+  resize: none;
+  outline-style: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 22px;
+}
