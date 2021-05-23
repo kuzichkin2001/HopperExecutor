@@ -1,0 +1,12 @@
+<div class="modal-form" style="display: none">
+    {% load static %}
+    <form method="POST" action="/new_session" class="new_session_form" onsubmit="createSession(event)">
+        {% csrf_token %}
+        <img id="closeButton" onClick="toggleModalVisibility()" src="{% static 'hopper/images/close.svg' %}" alt="nothing">
+        <label for="session_name" class="form_label">Введите название проекта:</label>
+        <input autocomplete="off" id="session_name" type="text" placeholder="Название проекта...">
+        <div class="separator"></div>
+        <button class="create_session" type="submit" onclick="toggleModalVisibility()">Создать</button>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>

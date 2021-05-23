@@ -1,0 +1,17 @@
+<div class="content">
+	<div class="hopper-workspace">
+		{% load static %}
+		<canvas
+			id="hopper-workspace"
+			width="800"
+			height="500"
+		></canvas>
+	</div>
+	<div class="hopper-commands">
+	  {% include "hopper/session/form.html" %}
+	  {% load static %}
+	</div>
+	{% load static %}
+  	<script type="text/javascript" src="{% static 'hopper/index.js' %}"></script>
+	<script type="text/javascript" src="{% static 'hopper/hopper_workspace.js' %}"></script>
+</div>

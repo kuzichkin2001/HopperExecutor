@@ -1,0 +1,11 @@
+<form class="hopper-commands__form" method="post">
+	{% csrf_token %}
+	<div class="hopper-commands__actions">
+	  <button class="hopper-commands__action-btn" onclick="saveCurrentSession(event, {{current_session.session_id}})">Сохранить проект</button>
+	</div>
+	<label class="hopper-commands__label" for="command-input">Напишите код программы</label>
+	<textarea class="hopper-commands__input" id="command-input" placeholder="Писать код сюда..." rows="8">{{current_session.code}}</textarea>
+</form>
+{% load static %}
+<script src="{% static 'hopper/session/saveCurrentSession.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
