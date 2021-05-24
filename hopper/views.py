@@ -16,7 +16,6 @@ def index(request):
 
 
 def save_session(request):
-	print(request.body)
 	if request.method == 'PATCH':
 		req = json.loads(request.body.decode())
 		model_obj = Session.objects.get(session_id=req["id"])

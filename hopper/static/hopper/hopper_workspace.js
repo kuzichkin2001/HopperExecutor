@@ -54,17 +54,17 @@ image.src = '/static/hopper/images/background.png';
 hopper.src = '/static/hopper/images/hopper.png';
 
 function parseGrasshopperCode() {
-    let left = 0, right = 0;
+    const stepsSuccession = [];
     const input = document.getElementById('command-input');
     let rows = input.value.split('\n');
     for (let row of rows) {
-        const rowParts = row.trim().split(' ');
-        if (rowParts.length === 2) {
-            if (rowParts[0] === 'нц') {
-                for (let i = 0; i < +rowParts[1]; ++i) {
-
-                }
-            }
+        if (row[0] === 'влево') {
+            stepsSuccession.push({ direction: 'left', value: +row[1] });
+        } else if (row[1] === 'вправо') {
+            stepsSuccession.push({ direction: 'right', value: +row[1] });
+        } else {
+            throw new Error(`Команды ${row[0]} не существует. Попробуйте ввести Влево или Вправо`);
         }
     }
+    return stepsSuccession;
 }
