@@ -3,7 +3,7 @@
 
 This project relates to the Executor "Grasshopper" made with Python Django framework.  
 Jump to the link below to try and use this application is all its beauty :)  
-[тут должна быть ссылка]
+http://hopperman.pythonanywhere.com/
 
 ## Stack of technologies
 Technologies, that were used while creating this application:
