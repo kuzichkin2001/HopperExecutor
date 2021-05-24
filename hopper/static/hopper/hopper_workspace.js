@@ -41,7 +41,9 @@ image.onload = function() {
     context.stroke();
 
     hopper.onload = function() {
-        context.drawImage(hopper, 15, 240, 50, 50);
+        setTimeout(() => {
+            context.drawImage(hopper, 15, 240, 50, 50);
+        }, 250);
     }
 
     drawWorkspace(40, 740, 12, 300);
