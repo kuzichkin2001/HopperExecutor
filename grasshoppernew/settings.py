@@ -26,7 +26,7 @@ SECRET_KEY = 'c6@silrsa!(-tk1xrz8_eltenrh4n68daw!_k!a26)@sh4%(r('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hopperman.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', 'hopperman.pythonanywhere.com']
 
 
 # Application definition

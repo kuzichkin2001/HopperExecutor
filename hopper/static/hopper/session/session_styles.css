@@ -68,11 +68,13 @@
 .hopper-workspace {
   height: 500px;
   z-index: 1;
+  background-color: #96E6B3;
 }
 
 #hopper-workspace {
   border-radius: 5px;
   z-index: 2;
+  border: 1px solid black;
 }
 
 .hopper-commands {
