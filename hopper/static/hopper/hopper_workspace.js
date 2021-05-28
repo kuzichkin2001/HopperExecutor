@@ -106,27 +106,22 @@ function createHopper(commands) {
     for (let command of commands) {
         totalIterations += command.value;
     }
-    let globalIter = 0;
-    let globalInterval = setInterval(() => {
-        let interval = setInterval(() => {
-            createjs.Tween.get(hopper, { loop: false })
-                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 35, y: hopper.y - 15 }, 200, createjs.Ease.getPowInOut(1))
-                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 70, y: hopper.y }, 200, createjs.Ease.getPowInOut(1));
-            hopper.x += (commands[0].direction === 'left' ? -1 : 1) * 70;
-            iter++;
-            if (iter === commands[0].value) {
-                commands.shift();
-                clearInterval(interval);
-                iter = 0;
-                globalIter += iter;
-            }
-        }, 400);
-        if (globalIter === totalIterations) {
-            console.log('end');
-            clearInterval(globalInterval);
-            globalIter = 0;
+    var globalIter = 0;
+    let interval = setInterval(() => {
+        createjs.Tween.get(hopper, { loop: false })
+            .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 35, y: hopper.y - 25 }, 275, createjs.Ease.getPowInOut(1))
+            .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 70, y: hopper.y }, 275, createjs.Ease.getPowInOut(1));
+        hopper.x += (commands[0].direction === 'left' ? -1 : 1) * 70;
+        iter++;
+        if (iter === commands[0].value) {
+            commands.shift();
+            globalIter += iter;
+            iter = 0;
         }
-    }, 400 * totalIterations);
+        if (globalIter === totalIterations) {
+            clearInterval(interval);
+        }
+    }, 550);
     hopper.crossOrigin = "Anonymous";
 
     stage.addChild(hopper);
@@ -144,194 +139,6 @@ function renderWorkSpace() {
     drawArrow(760, 250);
 }
 
-
-// const duration = 250;
-// const step_x = 70;
-// const step_y = 50;
-// const currentPosition = {
-//     x: 15,
-//     y: 190,
-// };
-//
-// renderWorkSpace();
-//
-// const debounce = (func, wait) => {
-//     let interval;
-//
-//     return function executedFunction(...args) {
-//         const later = () => {
-//             clearInterval(interval);
-//             func(...args);
-//         };
-//         clearInterval(interval);
-//         interval = setInterval(later, wait);
-//     };
-// };
-//
-// function jump(obj) {
-//     const { clear, update, render } = obj;
-//     let pTimestamp = 0;
-//
-//     requestAnimationFrame(tick);
-//
-//     function tick(timestamp) {
-//         let myRequest = requestAnimationFrame(tick);
-//         const diff = timestamp - pTimestamp;
-//         pTimestamp = timestamp;
-//         const fps = 1000 / diff;
-//         const secondPart = diff / 1000;
-//
-//         const params = {
-//             pTimestamp,
-//             timestamp,
-//             diff,
-//             fps,
-//             secondPart,
-//             myRequest,
-//         };
-//
-//         update(params);
-//         clear();
-//         render(params);
-//     }
-// }
-//
-// canvas.onclick = function() {
-//     currentPosition.x = 15;
-//     currentPosition.y = 190;
-//     const commands = parseGrasshopperCode();
-//     let angle = 0;
-//     const right = debounce((iter) => {
-//         console.log(iter);
-//         var interval = setInterval(() => jump({
-//             clear() {
-//                 context.clearRect(0, 0, canvas.width, canvas.height);
-//             },
-//             update(params) {
-//                 currentPosition.x = (15 - iter * 70) + 35 * (Math.cos(angle) - 1);
-//                 currentPosition.y = 190 - 15 * Math.sin(angle);
-//                 angle += 0.09;
-//                 if (angle > Math.PI) {
-//                     angle = 0;
-//                     iter++;
-//                     cancelAnimationFrame(params.myRequest);
-//                     clearInterval(interval);
-//                 }
-//             },
-//             render() {
-//                 renderWorkSpace();
-//                 context.drawImage(hopper, currentPosition.x, currentPosition.y, 50, 50);
-//             }
-//         }), 250);
-//     }, 250);
-//     const left = debounce((iter) => {
-//         console.log(iter);
-//         var interval = setInterval(() => jump({
-//             clear() {
-//                 context.clearRect(0, 0, canvas.width, canvas.height);
-//             },
-//             update(params) {
-//                 currentPosition.x = (15 - iter * 70) + 35 * (Math.cos(angle) - 1);
-//                 currentPosition.y = 190 - 15 * Math.sin(angle);
-//                 angle += 0.09;
-//                 if (angle > Math.PI) {
-//                     angle = 0;
-//                     iter++;
-//                     cancelAnimationFrame(params.myRequest);
-//                     clearInterval(interval);
-//                 }
-//             },
-//             render() {
-//                 renderWorkSpace();
-//                 context.drawImage(hopper, currentPosition.x, currentPosition.y, 50, 50);
-//             }
-//         }), 250);
-//
-//     }, 250);
-//     for (let command of commands) {
-//         let iter = 0;
-//         if (command.direction === 'right') {
-//             for (let i = 0; i < command.value; ++i) {
-//                 setTimeout(() => right(i), 250 * (iter + 2));
-//                 iter++;
-//             }
-//         } else if (command.direction === 'left') {
-//             for (let i = 0; i < command.value; ++i) {
-//                 setTimeout(() => left(i), 250 * (iter + 2));
-//                 iter++;
-//             }
-//         }
-//     }
-//
-//
-//     // for (let command of commands) {
-//     //     let iter = 0;
-//     //     let angle = 0;
-//     //     renderCanvas({
-//     //         clear() {
-//     //             context.clearRect(0, 0, canvas.width, canvas.height);
-//     //         },
-//     //         update(params) {
-//     //             if (command.direction === 'left') {
-//     //                 console.log('left');
-//     //                 currentPosition.x = Math.abs(35 * Math.cos(angle));
-//     //                 if (angle > Math.PI) {
-//     //                     iter++;
-//     //                 }
-//     //                 if (command.value === iter) {
-//     //                     cancelAnimationFrame(params.myRequest);
-//     //                 }
-//     //             } else if (command.direction === 'right') {
-//     //                 console.log('right');
-//     //                 currentPosition.x = Math.abs(35 * Math.cos(Math.PI - angle));
-//     //                 if (angle > Math.PI) {
-//     //                     iter++;
-//     //                 }
-//     //                 if (command.value === iter) {
-//     //                     cancelAnimationFrame(params.myRequest);
-//     //                 }
-//     //             }
-//     //             angle += 0.18;
-//     //             currentPosition.y = 190 - 15 * Math.sin(angle);
-//     //         },
-//     //         render() {
-//     //             renderWorkSpace();
-//     //             context.drawImage(hopper, currentPosition.x, currentPosition.y, 50, 50);
-//     //         },
-//     //     });
-//     // }
-// }
-//
-// // function renderCanvas(obj) {
-// //     const { clear, update, render } = obj;
-// //     let pTimestamp = 0;
-// //
-// //     requestAnimationFrame(tick);
-// //
-// //     function tick(timestamp) {
-// //         let myRequest = requestAnimationFrame(tick);
-// //         const diff = timestamp - pTimestamp;
-// //         pTimestamp = timestamp;
-// //         const fps = 1000 / diff;
-// //         const secondPart = diff / 1000;
-// //
-// //         const params = {
-// //             pTimestamp,
-// //             timestamp,
-// //             diff,
-// //             fps,
-// //             secondPart,
-// //             myRequest,
-// //         };
-// //
-// //         update(params);
-// //         clear();
-// //         render(params);
-// //     }
-// // }
-//
-// hopper.src = '/static/hopper/images/hopper.png';
-//
 function parseGrasshopperCode() {
     const stepsSuccession = [];
     const input = document.getElementById('command-input');

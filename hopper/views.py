@@ -4,6 +4,7 @@ from django.shortcuts import render
 from hopper.forms import CodeForm
 from hopper.models import Session
 from django.http import JsonResponse, HttpRequest
+from django.utils import timezone
 
 
 # Create your views here.
@@ -22,6 +23,7 @@ def save_session(request):
 		model_obj.code = req["code"]
 		model_obj.kuz_place = req["kuz_place"]
 		model_obj.save()
+		print(timezone.get_current_timezone())
 		return JsonResponse({"status": 200})
 
 
