@@ -1,7 +1,8 @@
 <form class="hopper-commands__form" method="post">
 	{% csrf_token %}
 	<div class="hopper-commands__actions">
-	  <button class="hopper-commands__action-btn" onclick="saveCurrentSession(event, {{current_session.session_id}})">Сохранить проект</button>
+	  	<button class="hopper-commands__action-btn" onclick="saveCurrentSession(event, {{current_session.session_id}})">Сохранить проект</button>
+		<button class="hopper-commands__action-btn" onclick="renderHopper()">Запустить Кузнечика</button>
 	</div>
 	<label class="hopper-commands__label" for="command-input">Напишите код программы</label>
 	<textarea class="hopper-commands__input" id="command-input" placeholder="Писать код сюда..." rows="8">{{current_session.code}}</textarea>

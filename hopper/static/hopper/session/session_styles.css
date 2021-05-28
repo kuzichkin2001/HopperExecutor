@@ -68,7 +68,6 @@
 .hopper-workspace {
   height: 500px;
   z-index: 1;
-  background-color: #96E6B3;
 }
 
 #hopper-workspace {
@@ -99,7 +98,8 @@
 
 .hopper-commands__action-btn {
   padding: 5px;
-  width: 100%;
+  margin: 0 5px;
+  width: 47%;
   border-radius: 10px;
   border: 0;
   transition: 0.3s linear;
