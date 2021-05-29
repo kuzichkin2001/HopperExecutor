@@ -81,6 +81,13 @@ function createHopper(commands) {
     }
     var globalIter = 0;
     let interval = setInterval(() => {
+        if (hopper.x + 70 > 690 && commands[0].direction === 'right') {
+            showErrorProvider('Кузнечик ударился об правую стенку и упал :(');
+            clearInterval(interval);
+        } else if (hopper.x - 70 < 0 && commands[0].direction === 'left') {
+            showErrorProvider('Кузнечик ударился об левую стенку и упал :(');
+            clearInterval(interval);
+        }
         if (commands[0].value > 0) {
             createjs.Tween.get(hopper, { loop: false })
                 .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 35, y: hopper.y - 25 }, 275, createjs.Ease.getPowInOut(1))
@@ -92,13 +99,6 @@ function createHopper(commands) {
             commands.splice(0, 1);
             globalIter += iter;
             iter = 0;
-        }
-        if (hopper.x + 70 > 690 && commands[0].direction === 'right') {
-            showErrorProvider('Кузнечик ударился об правую стенку и упал :(');
-            clearInterval(interval);
-        } else if (hopper.x - 70 < 0 && commands[0].direction === 'left') {
-            showErrorProvider('Кузнечик ударился об левую стенку и упал :(');
-            clearInterval(interval);
         }
         if (globalIter === totalIterations) {
             clearInterval(interval);
@@ -126,13 +126,18 @@ function parseGrasshopperCode() {
     const input = document.getElementById('command-input');
     let rows = input.value.split('\n');
     for (let row of rows) {
-        const rowParts = row.split(' ');
+        const rowParts = row.trim().split(' ');
+        console.log(rowParts);
         if (rowParts[0] === 'влево' && isNumber(rowParts[1])) {
             stepsSuccession.push({ direction: 'left', value: +rowParts[1] });
         } else if (rowParts[0] === 'вправо' && isNumber(rowParts[1])) {
             stepsSuccession.push({ direction: 'right', value: +rowParts[1] });
         } else {
-            showErrorProvider(`Команды ${rowParts[0]} не существует. Попробуйте команды "влево" или "вправо"`);
+            if (rowParts[0] !== 'вправо' && rowParts[0] !== 'влево') {
+                showErrorProvider(`Команды "${row}" не существует. Попробуйте команды "влево" или "вправо"`);
+            } else if (!rowParts[1]) {
+                showErrorProvider(`Команде "${rowParts[0]}" не подан аргумент. Введите количество шагов`)
+            }
         }
     }
     console.log(stepsSuccession);
