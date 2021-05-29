@@ -13,15 +13,7 @@
   </head>
   <body>
     <div class="container">
-      <header class="menus">
-        <nav class="menus__navigation">
-          <ul class="menus__navigation-list">
-            <li class="menus__navigation-item"><a href="/">Домой</a></li>
-            <li class="menus__navigation-item"><a href="/">К Кузнечику</a></li>
-            <li class="menus__navigation-item"><a href="/">О создателе</a></li>
-          </ul>
-        </nav>
-      </header>
+      {% include "hopper/header.html" %}
       {% include "hopper/session/content.html" %}
     </div>
   </body>

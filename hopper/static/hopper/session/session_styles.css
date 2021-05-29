@@ -9,7 +9,7 @@
 
 /* Header */
 
-.menus {
+.header_navigation {
   display: flex;
   align-items: center;
   height: 50px;
@@ -18,18 +18,18 @@
   background-color: #96E6B3;
 }
 
-.menus__navigation {
+.site_navigation {
   padding: 10px;
   width: 100%;
 }
 
-.menus__navigation-list {
+.site_navigation__items {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.menus__navigation-item a {
+.site_navigation__link {
   text-decoration: none;
   color: #000;
   transition: 0.2s linear;
@@ -37,9 +37,26 @@
   font-weight: 500;
 }
 
-.menus__navigation-item a:hover {
+.site_navigation__link:hover {
   color: #888;
 }
+
+.error-provider {
+  width: 100%;
+  flex-direction: column;
+  background-color: lightcoral;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.errorProviderText {
+  display: block;
+  margin: 15px 0;
+}
+
+/* Content */
 
 .session_name {
   display: flex;

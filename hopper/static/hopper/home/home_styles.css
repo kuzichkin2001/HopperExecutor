@@ -42,6 +42,21 @@
   color: #888;
 }
 
+.error-provider {
+  width: 100%;
+  flex-direction: column;
+  background-color: lightcoral;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.errorProviderText {
+  display: block;
+  margin: 15px 0;
+}
+
 /* Content */
 
 .menus {

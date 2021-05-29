@@ -8,3 +8,17 @@ function toggleModalVisibility() {
         modalForm.style.display = 'none';
     }
 }
+
+function showErrorProvider(message) {
+    const errorProvider = document.getElementsByClassName('error-provider')[0];
+    const modalInput = document.getElementById('session_name');
+    const paragraph = document.createElement('p');
+    paragraph.className = 'errorProviderText';
+    paragraph.innerHTML = message;
+    errorProvider.appendChild(paragraph);
+    errorProvider.style.display = 'flex';
+    setTimeout(() => {
+        errorProvider.style.display = 'none';
+        errorProvider.removeChild(paragraph);
+    }, 5000);
+}

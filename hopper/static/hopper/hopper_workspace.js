@@ -1,29 +1,3 @@
-const drawWorkspace = (beg_x, end_x, height) => {
-    const stepLength = (end_x - beg_x) / 10;
-    for (let i = 0; i < 10; ++i) {
-        context.font = '15px Roboto';
-        context.fillText(`${i}`, beg_x - 5, height + 25);
-        context.beginPath();
-        context.moveTo(beg_x, height - 5);
-        context.lineWidth = 3;
-        context.lineCap = 'round';
-        context.lineTo(beg_x, height + 5);
-        context.stroke();
-        beg_x += stepLength;
-    }
-}
-
-const drawArrow = (end_x, end_y) => {
-    context.beginPath();
-    context.moveTo(end_x, end_y);
-    context.lineCap = 'round';
-    context.lineWidth = 3;
-    context.lineTo(end_x - 20, end_y - 10);
-    context.moveTo(end_x, end_y);
-    context.lineTo(end_x - 20, end_y + 10);
-    context.stroke();
-}
-
 var stage, loader;
 const canvas = document.getElementById('hopper-workspace');
 const context = canvas.getContext('2d');
@@ -92,7 +66,6 @@ function handleComplete() {
     createHopper(commands);
 }
 
-
 function createHopper(commands) {
     var hopper = new createjs.Bitmap(loader.getResult('hopper'));
 
@@ -108,15 +81,24 @@ function createHopper(commands) {
     }
     var globalIter = 0;
     let interval = setInterval(() => {
-        createjs.Tween.get(hopper, { loop: false })
-            .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 35, y: hopper.y - 25 }, 275, createjs.Ease.getPowInOut(1))
-            .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 70, y: hopper.y }, 275, createjs.Ease.getPowInOut(1));
-        hopper.x += (commands[0].direction === 'left' ? -1 : 1) * 70;
+        if (commands[0].value > 0) {
+            createjs.Tween.get(hopper, { loop: false })
+                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 35, y: hopper.y - 25 }, 275, createjs.Ease.getPowInOut(1))
+                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 70, y: hopper.y }, 275, createjs.Ease.getPowInOut(1));
+            hopper.x += (commands[0].direction === 'left' ? -1 : 1) * 70;
+        }
         iter++;
         if (iter === commands[0].value) {
-            commands.shift();
+            commands.splice(0, 1);
             globalIter += iter;
             iter = 0;
+        }
+        if (hopper.x + 70 > 690 && commands[0].direction === 'right') {
+            showErrorProvider('Кузнечик ударился об правую стенку и упал :(');
+            clearInterval(interval);
+        } else if (hopper.x - 70 < 0 && commands[0].direction === 'left') {
+            showErrorProvider('Кузнечик ударился об левую стенку и упал :(');
+            clearInterval(interval);
         }
         if (globalIter === totalIterations) {
             clearInterval(interval);
@@ -145,13 +127,45 @@ function parseGrasshopperCode() {
     let rows = input.value.split('\n');
     for (let row of rows) {
         const rowParts = row.split(' ');
-        if (rowParts[0] === 'влево') {
+        if (rowParts[0] === 'влево' && isNumber(rowParts[1])) {
             stepsSuccession.push({ direction: 'left', value: +rowParts[1] });
-        } else if (rowParts[0] === 'вправо') {
+        } else if (rowParts[0] === 'вправо' && isNumber(rowParts[1])) {
             stepsSuccession.push({ direction: 'right', value: +rowParts[1] });
         } else {
-            throw new Error(`Команды ${rowParts[0]} не существует. Попробуйте ввести Влево или Вправо`);
+            showErrorProvider(`Команды ${rowParts[0]} не существует. Попробуйте команды "влево" или "вправо"`);
         }
     }
+    console.log(stepsSuccession);
     return stepsSuccession;
+}
+
+function drawWorkspace(beg_x, end_x, height) {
+    const stepLength = (end_x - beg_x) / 10;
+    for (let i = 0; i < 10; ++i) {
+        context.font = '15px Roboto';
+        context.fillText(`${i}`, beg_x - 5, height + 25);
+        context.beginPath();
+        context.moveTo(beg_x, height - 5);
+        context.lineWidth = 3;
+        context.lineCap = 'round';
+        context.lineTo(beg_x, height + 5);
+        context.stroke();
+        beg_x += stepLength;
+    }
+}
+
+function isNumber(str) {
+    if (typeof str !== 'string') return false;
+    return !isNaN(str) && !isNaN(parseFloat(str));
+}
+
+function drawArrow(end_x, end_y) {
+    context.beginPath();
+    context.moveTo(end_x, end_y);
+    context.lineCap = 'round';
+    context.lineWidth = 3;
+    context.lineTo(end_x - 20, end_y - 10);
+    context.moveTo(end_x, end_y);
+    context.lineTo(end_x - 20, end_y + 10);
+    context.stroke();
 }
