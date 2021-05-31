@@ -48,3 +48,8 @@ def new_session(request):
 		creationDate=dt.fromtimestamp(req["creationDate"]/1000)
 	)
 	return JsonResponse({"status": 200})
+
+
+def rules(request):
+	return render(request, "hopper/rules.html")
+

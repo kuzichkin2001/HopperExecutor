@@ -74,6 +74,21 @@
   font-size: 24px;
 }
 
+.commands {
+  padding: 20px 30px;
+}
+
+.commands_text {
+  font-size: 25px;
+}
+
+.commands_content {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #96E6B3;
+  line-height: 40px;
+}
+
 /* Main content */
 
 .content {
