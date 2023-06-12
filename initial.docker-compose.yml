@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  backend:
+    image: hopper-back-end
+    container_name: hopper-backend
+    build:
+      context: ./back-end
+    restart: always
+    tty: true
+    depends_on:
+      - db
+    ports:
+      - "8080:8000"
+  db:
+    image: postgres
+    container_name: hopper-db
+    restart: always
+    environment:
+      POSTGRES_DB: hopper-executor
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: igumug16
+    ports:
+      - "5432:5432"
