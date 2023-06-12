@@ -5,7 +5,8 @@ services:
     image: hopper-back-end
     container_name: hopper-backend
     build:
-      context: ./back-end
+      context: .
+      dockerfile: ./Dockerfile
     restart: always
     tty: true
     depends_on:
