@@ -26,7 +26,7 @@ SECRET_KEY = 'c6@silrsa!(-tk1xrz8_eltenrh4n68daw!_k!a26)@sh4%(r('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'hopperman.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', 'hopperman.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -39,6 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hopper.apps.HopperConfig',
+]
+
+CORS_ALLOWED_ORIGINS = ['http://localhost']
+
+CORS_ALLOWED_METHODS = [
+    'GET',
+    'POST',
+    'DELETE',
+    'PATCH',
+    'PUT',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +87,12 @@ WSGI_APPLICATION = 'grasshoppernew.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hopper-executor',
+        'USER': 'postgres',
+        'PASSWORD': 'igumug16',
+        'HOST': 'localhost',
+        'PORT': 5432
     }
 }
 

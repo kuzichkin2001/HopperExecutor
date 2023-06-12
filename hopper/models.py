@@ -10,7 +10,7 @@ class WorkSpace(models.Model):
 
 
 class Session(models.Model):
-	session_id = models.IntegerField(unique=True, null=False, primary_key=True)
+	session_id = models.AutoField(primary_key=True, null=False)
 	name = models.CharField('Новый проект %s' % session_id, max_length=200, null=False, default='')
 	kuz_place = models.IntegerField(default=0, null=False)
 	code = models.TextField(null=False, default='')

@@ -66,11 +66,17 @@ function handleComplete() {
     createHopper(commands);
 }
 
+function reflect(hooper) {
+    hopper.style.transform = {
+        'scaleX': '-100%',
+    }
+}
+
 function createHopper(commands) {
-    var hopper = new createjs.Bitmap(loader.getResult('hopper'));
+    let hopper = new createjs.Bitmap(loader.getResult('hopper'));
 
     hopper.x = 15;
-    hopper.y = 190;
+    hopper.y = 175;
     hopper.scaleX = 0.14;
     hopper.scaleY = 0.17;
 
@@ -80,7 +86,13 @@ function createHopper(commands) {
         totalIterations += command.value;
     }
     var globalIter = 0;
+    let prevState = commands[0].direction;
     let interval = setInterval(() => {
+        if (prevState !== commands[0].direction) {
+            hopper.scaleX *= -1;
+        }
+        prevState = commands[0].direction;
+
         if (hopper.x + 70 > 690 && commands[0].direction === 'right') {
             showErrorProvider('Кузнечик ударился об правую стенку и упал :(');
             clearInterval(interval);
@@ -90,8 +102,8 @@ function createHopper(commands) {
         }
         if (commands[0].value > 0) {
             createjs.Tween.get(hopper, { loop: false })
-                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 35, y: hopper.y - 25 }, 275, createjs.Ease.getPowInOut(1))
-                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 70, y: hopper.y }, 275, createjs.Ease.getPowInOut(1));
+                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 35, y: hopper.y - 25 }, 175, createjs.Ease.getPowInOut(1))
+                .to({ x: hopper.x + (commands[0].direction === 'left' ? -1 : 1) * 70, y: hopper.y }, 175, createjs.Ease.getPowInOut(1));
             hopper.x += (commands[0].direction === 'left' ? -1 : 1) * 70;
         }
         iter++;
@@ -103,7 +115,7 @@ function createHopper(commands) {
         if (globalIter === totalIterations) {
             clearInterval(interval);
         }
-    }, 550);
+    }, 350);
     hopper.crossOrigin = "Anonymous";
 
     stage.addChild(hopper);
